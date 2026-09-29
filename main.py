@@ -1,114 +1,135 @@
 # Airport Management System
-# simple project using list and dictionary
 
-flights = []      
-limit = 500       
+a = []
+limit = 500
 
 
-def get_number(msg):
+def num(msg):
     while True:
         try:
-            value = int(input(msg))
-            if value < 0:
-                print("Please enter a non-negative number")
-                continue
-            return value
-        except ValueError:
-            print("Please enter a valid whole number")
+            n = int(input(msg))
+
+            if n >= 0:
+                return n
+            else:
+                print("Enter a positive number")
+
+        except:
+            print("Enter a valid number")
 
 
 def add():
-    if len(flights) >= limit:
-        print("No space, 500 flights are already stored")
+
+    if len(a) >= limit:
+        print("No more flights can be added")
         return
 
     f = {}
+
     f["no"] = input("Enter flight number: ")
 
-    
-    for x in flights:#
+    # checking duplicate flight number
+    for x in a:
         if x["no"] == f["no"]:
-            print("This flight is already added")
+            print("Flight already exists")
             return
-
 
     f["from"] = input("Enter source city: ")
     f["to"] = input("Enter destination city: ")
-    f["stop"] = input("Enter stoppage city (write none if no stop): ")
+    f["stop"] = input("Enter stoppage city (none if no stop): ")
     f["arrival"] = input("Enter arrival time: ")
     f["departure"] = input("Enter departure time: ")
-    f["fuel"] = get_number("Enter refueling amount in liters: ")
-    f["passengers"] = get_number("Enter number of passengers: ")
-    f["crew"] = get_number("Enter number of crew members: ")
 
-    flights.append(f)
-    print("Flight added")
+    f["fuel"] = num("Enter fuel in liters: ")
+    f["passengers"] = num("Enter number of passengers: ")
+    f["crew"] = num("Enter number of crew members: ")
+
+    a.append(f)
+
+    print("Flight added successfully")
 
 
 def show(f):
-    print("-----------------------------")
-    print("Flight number  :", f["no"])
-    print("Route          :", f["from"], "to", f["to"])
-    print("Stoppage       :", f["stop"])
-    print("Arrival time   :", f["arrival"])
-    print("Departure time :", f["departure"])
-    print("Fuel filled    :", f["fuel"], "liters")
-    print("Passengers     :", f["passengers"])
-    print("Crew members   :", f["crew"])
-    print("-----------------------------")
+
+    print("--------------------------")
+    print("Flight number :", f["no"])
+    print("From          :", f["from"])
+    print("To            :", f["to"])
+    print("Stoppage      :", f["stop"])
+    print("Arrival       :", f["arrival"])
+    print("Departure     :", f["departure"])
+    print("Fuel          :", f["fuel"], "liters")
+    print("Passengers    :", f["passengers"])
+    print("Crew          :", f["crew"])
+    print("--------------------------")
 
 
-def show_all():
-    if len(flights) == 0:
+def showall():
+
+    if len(a) == 0:
         print("No flights available")
-    else:
-        for f in flights:
-            show(f)
-        print("Total flights =", len(flights))
+        return
+
+    for f in a:
+        show(f)
+
+    print("Total flights:", len(a))
 
 
 def search():
-    n = input("Enter flight number to search: ")
-    found = False
-    for f in flights:
+
+    n = input("Enter flight number: ")
+
+    for f in a:
+
         if f["no"] == n:
             show(f)
-            found = True
-    if found == False:
-        print("Flight not found")
-
-
-def delete():
-    n = input("Enter flight number to delete: ")
-    for f in flights:
-        if f["no"] == n:
-            flights.remove(f)
-            print("Flight deleted")
             return
+
     print("Flight not found")
 
 
-# main program
+def delete():
+
+    n = input("Enter flight number to delete: ")
+
+    for f in a:
+
+        if f["no"] == n:
+            a.remove(f)
+            print("Flight deleted")
+            return
+
+    print("Flight not found")
+
+
 while True:
-    print("\n***** AIRPORT MANAGEMENT *****")
+
+    print()
+    print("***** AIRPORT MANAGEMENT *****")
     print("1. Add flight")
     print("2. Show all flights")
     print("3. Search flight")
     print("4. Delete flight")
     print("5. Exit")
 
-    ch = input("Enter your choice: ")
+    c = input("Enter your choice: ")
 
-    if ch == "1":
+    if c == "1":
         add()
-    elif ch == "2":
-        show_all()
-    elif ch == "3":
+
+    elif c == "2":
+        showall()
+
+    elif c == "3":
         search()
-    elif ch == "4":
+
+    elif c == "4":
         delete()
-    elif ch == "5":
+
+    elif c == "5":
         print("Thank you")
         break
+
     else:
         print("Wrong choice")
