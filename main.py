@@ -1,8 +1,20 @@
- Airport Management System
+# Airport Management System
 # simple project using list and dictionary
 
 flights = []      
 limit = 500       
+
+
+def get_number(msg):
+    while True:
+        try:
+            value = int(input(msg))
+            if value < 0:
+                print("Please enter a non-negative number")
+                continue
+            return value
+        except ValueError:
+            print("Please enter a valid whole number")
 
 
 def add():
@@ -25,9 +37,9 @@ def add():
     f["stop"] = input("Enter stoppage city (write none if no stop): ")
     f["arrival"] = input("Enter arrival time: ")
     f["departure"] = input("Enter departure time: ")
-    f["fuel"] = int(input("Enter refueling amount in liters: "))
-    f["passengers"] = int(input("Enter number of passengers: "))
-    f["crew"] = int(input("Enter number of crew members: "))
+    f["fuel"] = get_number("Enter refueling amount in liters: ")
+    f["passengers"] = get_number("Enter number of passengers: ")
+    f["crew"] = get_number("Enter number of crew members: ")
 
     flights.append(f)
     print("Flight added")
